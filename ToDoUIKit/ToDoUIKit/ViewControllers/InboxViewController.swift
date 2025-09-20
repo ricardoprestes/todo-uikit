@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  InboxViewController.swift
 //  ToDoUIKit
 //
 //  Created by Ricardo Prestes on 20/09/25.
@@ -7,14 +7,13 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class InboxViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .red
+        view.backgroundColor = .blue
     }
 
 
 }
-
