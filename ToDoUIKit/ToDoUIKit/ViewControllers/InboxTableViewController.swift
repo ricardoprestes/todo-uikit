@@ -22,7 +22,7 @@ class InboxTableViewController: UITableViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ItemViewCell.self, forCellReuseIdentifier: ItemViewCell.identifier)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,8 +30,11 @@ class InboxTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = itens[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemViewCell.identifier, for: indexPath) as? ItemViewCell else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(title: itens[indexPath.row])
         return cell
     }
 
