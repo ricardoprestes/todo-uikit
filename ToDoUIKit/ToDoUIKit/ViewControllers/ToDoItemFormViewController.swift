@@ -9,6 +9,15 @@ import UIKit
 
 class ToDoItemFormViewController: UIViewController {
     
+    let stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 16
+        return stack
+    }()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,7 +27,14 @@ class ToDoItemFormViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelTapped))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
+        
+        setupViews()
     }
+    
+    func setupViews() {
+        view.addSubviews(stackView)
+    }
+    
     
     @objc func cancelTapped() {
         dismiss(animated: true)
