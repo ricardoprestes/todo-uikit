@@ -36,4 +36,8 @@ final class InboxViewModel {
     func toggleFinished(at index: Int) {
         items[index].isFinished.toggle()
     }
+    
+    func addItem(_ item: ToDoItem) {
+        items.append(item)
+    }
 }

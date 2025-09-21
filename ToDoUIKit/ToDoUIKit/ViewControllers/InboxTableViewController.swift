@@ -16,6 +16,8 @@ class InboxTableViewController: UITableViewController {
         view.backgroundColor = .systemBackground
         
         tableView.register(ItemViewCell.self, forCellReuseIdentifier: ItemViewCell.identifier)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,6 +38,15 @@ class InboxTableViewController: UITableViewController {
         }
         
         return cell
+    }
+    
+    @objc func addItem() {
+        let newItem = ToDoItem(title: "New Item", isFinished: false)
+        viewModel.addItem(newItem)
+        
+        let lastRowIndex = viewModel.numberOfItems() - 1
+        let lastIndexPath = IndexPath(row: lastRowIndex, section: 0)
+        tableView.insertRows(at: [lastIndexPath], with: .automatic)
     }
 
 }
