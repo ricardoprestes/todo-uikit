@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        let inboxViewController = InboxViewController()
+        let inboxViewController = InboxTableViewController()
         inboxViewController.title = "Inbox"
         inboxViewController.tabBarItem = UITabBarItem(title: "Inbox", image: UIImage(systemName: "tray"), tag: 0)
         
