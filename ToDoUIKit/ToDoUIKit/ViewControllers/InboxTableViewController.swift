@@ -9,13 +9,12 @@ import UIKit
 
 class InboxTableViewController: UITableViewController {
 
-    private let itens = [
-        "Item 1",
-        "Item 2",
-        "Item 3",
-        "Item 4",
-        "Item 5",
-        "Item 6",
+    private let itens: [Item] = [
+        Item(title: "Item 1", observation: "", date: Date(), isFinished: false),
+        Item(title: "Item 2", observation: "", date: Date(), isFinished: false),
+        Item(title: "Item 3", observation: "", date: Date(), isFinished: false),
+        Item(title: "Item 4", observation: "", date: Date(), isFinished: false),
+        Item(title: "Item 5", observation: "", date: Date(), isFinished: false)
     ]
     
     override func viewDidLoad() {
@@ -34,7 +33,7 @@ class InboxTableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        cell.configure(title: itens[indexPath.row])
+        cell.configure(item: itens[indexPath.row])
         return cell
     }
 
