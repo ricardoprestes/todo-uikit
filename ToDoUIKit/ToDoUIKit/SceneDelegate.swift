@@ -19,8 +19,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: InboxViewController())
-        window.rootViewController = navigationController
+        
+        let inboxViewController = InboxViewController()
+        inboxViewController.title = "Inbox"
+        inboxViewController.tabBarItem = UITabBarItem(title: "Inbox", image: UIImage(systemName: "tray"), tag: 0)
+        
+        let todayViewController = TodayViewController()
+        todayViewController.title = "Today"
+        todayViewController.tabBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "calendar"), tag: 1)
+        
+        let upcomingViewController = UpcomingViewController()
+        upcomingViewController.title = "Upcoming"
+        upcomingViewController.tabBarItem = UITabBarItem(title: "Upcoming", image: UIImage(systemName: "calendar.badge.plus"), tag: 2)
+        
+        
+        let inboxNav = UINavigationController(rootViewController: inboxViewController)
+        
+        let todayNav = UINavigationController(rootViewController: todayViewController)
+        
+        let upcomingNav = UINavigationController(rootViewController: upcomingViewController)
+        
+        
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [inboxNav, todayNav, upcomingNav]
+        
+        window.rootViewController = tabBarController
         self.window = window
         window.makeKeyAndVisible()
     }
