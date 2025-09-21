@@ -41,12 +41,9 @@ class InboxTableViewController: UITableViewController {
     }
     
     @objc func addItem() {
-        let newItem = ToDoItem(title: "New Item", isFinished: false)
-        viewModel.addItem(newItem)
-        
-        let lastRowIndex = viewModel.numberOfItems() - 1
-        let lastIndexPath = IndexPath(row: lastRowIndex, section: 0)
-        tableView.insertRows(at: [lastIndexPath], with: .automatic)
+        let viewController = ToDoItemFormViewController()
+        let navController = UINavigationController(rootViewController: viewController)
+        present(navController, animated: true, completion: nil)
     }
 
 }
