@@ -33,4 +33,7 @@ final class InboxViewModel {
         items[index]
     }
     
+    func toggleFinished(at index: Int) {
+        items[index].isFinished.toggle()
+    }
 }

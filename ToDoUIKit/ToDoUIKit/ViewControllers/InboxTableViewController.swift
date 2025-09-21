@@ -29,6 +29,12 @@ class InboxTableViewController: UITableViewController {
         
         let item = viewModel.item(at: indexPath.row)
         cell.configure(item: item)
+        
+        cell.onToggle = { [weak self] in
+            self?.viewModel.toggleFinished(at: indexPath.row)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
         return cell
     }
 

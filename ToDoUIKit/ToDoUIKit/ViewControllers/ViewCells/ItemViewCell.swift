@@ -29,6 +29,8 @@ class ItemViewCell: UITableViewCell {
     
     private var isChecked = false
     
+    var onToggle: (() -> Void)?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -60,16 +62,15 @@ class ItemViewCell: UITableViewCell {
     
     func configure(item: ToDoItem) {
         titleLabel.text = item.title
-        checkboxButton.isSelected = item.isFinished
+        updateCheckbox(item: item)
     }
     
-    func updateCheckbox() {
-        let imageName = isChecked ? "checkmark.circle" : "circle"
+    func updateCheckbox(item: ToDoItem) {
+        let imageName = item.isFinished ? "checkmark.circle" : "circle"
         checkboxButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     
     @objc func toggleCheckbox() {
-        isChecked.toggle()
-        updateCheckbox()
+        onToggle?()
     }
 }
