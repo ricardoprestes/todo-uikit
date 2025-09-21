@@ -58,7 +58,7 @@ class ItemViewCell: UITableViewCell {
             .bottom(equalTo: safeArea.bottomAnchor, constant: -16)
     }
     
-    func configure(item: Item) {
+    func configure(item: ToDoItem) {
         titleLabel.text = item.title
         checkboxButton.isSelected = item.isFinished
     }

@@ -9,12 +9,12 @@ import UIKit
 
 class InboxTableViewController: UITableViewController {
 
-    private let itens: [Item] = [
-        Item(title: "Item 1", observation: "", date: Date(), isFinished: false),
-        Item(title: "Item 2", observation: "", date: Date(), isFinished: false),
-        Item(title: "Item 3", observation: "", date: Date(), isFinished: false),
-        Item(title: "Item 4", observation: "", date: Date(), isFinished: false),
-        Item(title: "Item 5", observation: "", date: Date(), isFinished: false)
+    private let itens: [ToDoItem] = [
+        ToDoItem(title: "Item 1", observation: "", date: Date(), isFinished: false),
+        ToDoItem(title: "Item 2", observation: "", date: Date(), isFinished: false),
+        ToDoItem(title: "Item 3", observation: "", date: Date(), isFinished: false),
+        ToDoItem(title: "Item 4", observation: "", date: Date(), isFinished: false),
+        ToDoItem(title: "Item 5", observation: "", date: Date(), isFinished: false)
     ]
     
     override func viewDidLoad() {
