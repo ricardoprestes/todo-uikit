@@ -8,14 +8,8 @@
 import UIKit
 
 class InboxTableViewController: UITableViewController {
-
-    private let itens: [ToDoItem] = [
-        ToDoItem(title: "Item 1", observation: "", date: Date(), isFinished: false),
-        ToDoItem(title: "Item 2", observation: "", date: Date(), isFinished: false),
-        ToDoItem(title: "Item 3", observation: "", date: Date(), isFinished: false),
-        ToDoItem(title: "Item 4", observation: "", date: Date(), isFinished: false),
-        ToDoItem(title: "Item 5", observation: "", date: Date(), isFinished: false)
-    ]
+    
+    let viewModel = InboxViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +19,7 @@ class InboxTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        itens.count
+        viewModel.numberOfItems()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -33,9 +27,9 @@ class InboxTableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        cell.configure(item: itens[indexPath.row])
+        let item = viewModel.item(at: indexPath.row)
+        cell.configure(item: item)
         return cell
     }
-
 
 }
