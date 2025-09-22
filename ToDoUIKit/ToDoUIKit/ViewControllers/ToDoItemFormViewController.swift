@@ -9,6 +9,7 @@ import UIKit
 
 class ToDoItemFormViewController: UIViewController {
     
+    //MARK: - Views
     let titleLable: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +62,6 @@ class ToDoItemFormViewController: UIViewController {
         textView.layer.borderWidth = 1
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.layer.borderColor = UIColor.separator.cgColor
-        //textView.backgroundColor = UIColor.systemBackground
         return textView
     }()
     
@@ -73,6 +73,10 @@ class ToDoItemFormViewController: UIViewController {
         return stack
     }()
 
+    private let viewModel = ToDoItemFormViewModel()
+    
+    var onSave: (() -> Void)?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +123,13 @@ class ToDoItemFormViewController: UIViewController {
     }
     
     @objc func saveTapped() {
+        viewModel.title = titleTextField.text ?? ""
+        viewModel.date = datePicker.date
+        viewModel.observation = observationTextView.text ?? ""
+        
+        viewModel.save(item: nil)
+        
+        onSave?()
         dismiss(animated: true)
     }
     

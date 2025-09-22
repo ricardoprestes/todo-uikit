@@ -42,6 +42,13 @@ class InboxTableViewController: UITableViewController {
     
     @objc func addItem() {
         let viewController = ToDoItemFormViewController()
+        
+        viewController.onSave = { [weak self]  in
+            guard let self = self else { return }
+            self.viewModel.fetchItems()
+            self.tableView.reloadData()
+        }
+        
         let navController = UINavigationController(rootViewController: viewController)
         present(navController, animated: true, completion: nil)
     }
