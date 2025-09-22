@@ -11,6 +11,7 @@ final class InboxViewModel {
     
     //MARK: - Properties
     private(set) var items: [ToDoItem] = []
+    private let repository = ToDoRepository()
     
     init () {
         fetchItems()
@@ -18,11 +19,7 @@ final class InboxViewModel {
     
     //MARK: - Methods
     func fetchItems() {
-        items = [
-            ToDoItem(title: "Comprar pão", observation: "Na padaria da esquina", date: Date()),
-            ToDoItem(title: "Estudar Swift", observation: "Revisar UITableView", date: Date()),
-            ToDoItem(title: "Academia", observation: "Treino de peito", date: Date())
-        ]
+        items = repository.load()
     }
     
     func numberOfItems() -> Int {
