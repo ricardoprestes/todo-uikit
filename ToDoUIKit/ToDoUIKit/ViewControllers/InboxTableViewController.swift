@@ -18,6 +18,7 @@ class InboxTableViewController: UITableViewController {
         tableView.register(ItemViewCell.self, forCellReuseIdentifier: ItemViewCell.identifier)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,9 +41,14 @@ class InboxTableViewController: UITableViewController {
         return cell
     }
     
-    @objc func addItem() {
-        let viewController = ToDoItemFormViewController()
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let item = viewModel.item(at: indexPath.row)
+        let viewController = ToDoItemFormViewController(item: item)
+        openFormViewController(viewController)
+    }
+    
+    func openFormViewController(_ viewController: ToDoItemFormViewController) {
         viewController.onSave = { [weak self]  in
             guard let self = self else { return }
             self.viewModel.fetchItems()
@@ -51,6 +57,12 @@ class InboxTableViewController: UITableViewController {
         
         let navController = UINavigationController(rootViewController: viewController)
         present(navController, animated: true, completion: nil)
+    }
+    
+    @objc func addItem() {
+        let viewController = ToDoItemFormViewController()
+        
+        openFormViewController(viewController)
     }
 
 }

@@ -74,8 +74,18 @@ class ToDoItemFormViewController: UIViewController {
     }()
 
     private let viewModel = ToDoItemFormViewModel()
+    private var item: ToDoItem?
     
     var onSave: (() -> Void)?
+    
+    init(item: ToDoItem? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        self.item = item
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
@@ -90,6 +100,15 @@ class ToDoItemFormViewController: UIViewController {
         
         setupViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let item = item {
+            titleTextField.text = item.title
+            observationTextView.text = item.observation
+            dateTextField.text = DateFormatter.localizedString(from: item.date, dateStyle: .medium, timeStyle: .none)
+        }
+    }
+    
     
     func setupViews() {
         view.addSubviews(stackView)
@@ -127,7 +146,7 @@ class ToDoItemFormViewController: UIViewController {
         viewModel.date = datePicker.date
         viewModel.observation = observationTextView.text ?? ""
         
-        viewModel.save(item: nil)
+        viewModel.save(item: self.item)
         
         onSave?()
         dismiss(animated: true)
