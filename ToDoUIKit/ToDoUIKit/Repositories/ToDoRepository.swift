@@ -24,7 +24,8 @@ struct ToDoRepository {
             return []
         }
         do {
-            return try JSONDecoder().decode([ToDoItem].self, from: data)
+            let allItems = try JSONDecoder().decode([ToDoItem].self, from: data)
+            return allItems.filter { !$0.isFinished }
         } catch {
             print("❌ Erro ao carregar ToDoItems: \(error)")
             return []
