@@ -30,11 +30,9 @@ final class InboxViewModel {
         items[index]
     }
     
-    func toggleFinished(at index: Int) {
+    func toggleFinished(for item: ToDoItem) {
+        guard let index = items.firstIndex(where: {$0.id == item.id}) else { return }
         items[index].isFinished.toggle()
-    }
-    
-    func addItem(_ item: ToDoItem) {
-        items.append(item)
+        repository.save(items)
     }
 }
