@@ -9,14 +9,22 @@ import UIKit
 
 class ToDoItemFormViewController: UIViewController {
     
+    let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Title"
+        textField.borderStyle = .roundedRect
+        return textField
+    }()
+    
     let stackView: UIStackView = {
         let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 16
         return stack
     }()
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +41,13 @@ class ToDoItemFormViewController: UIViewController {
     
     func setupViews() {
         view.addSubviews(stackView)
+        stackView.addArrangedSubview(titleTextField)
+        
+        let safeArea = view.safeAreaLayoutGuide
+        stackView
+            .leading(equalTo: safeArea.leadingAnchor, constant: 16)
+            .top(equalTo: safeArea.topAnchor, constant: 16)
+            .trailing(equalTo: safeArea.trailingAnchor, constant: -16)
     }
     
     
