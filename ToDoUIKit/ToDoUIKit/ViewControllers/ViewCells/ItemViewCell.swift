@@ -66,7 +66,7 @@ class ItemViewCell: UITableViewCell {
     }
     
     func updateCheckbox(item: ToDoItem) {
-        let imageName = item.isFinished ? "checkmark.circle" : "circle"
+        let imageName = item.done ? "checkmark.circle" : "circle"
         checkboxButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     

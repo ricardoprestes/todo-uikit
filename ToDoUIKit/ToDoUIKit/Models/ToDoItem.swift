@@ -13,19 +13,19 @@ struct ToDoItem: Identifiable, Codable, Equatable
     var title: String
     var observation: String
     var date: Date
-    var isFinished: Bool
+    var done: Bool
     
     init(
         id: UUID = UUID(),
         title: String,
         observation: String = "",
         date: Date = Date(),
-        isFinished: Bool = false
+        done: Bool = false
     ) {
         self.id = id
         self.title = title
         self.observation = observation
         self.date = date
-        self.isFinished = isFinished
+        self.done = done
     }
 }

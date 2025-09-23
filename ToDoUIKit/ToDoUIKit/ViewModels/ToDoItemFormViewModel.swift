@@ -21,14 +21,14 @@ final class ToDoItemFormViewModel {
                 title: title,
                 observation: observation,
                 date: date,
-                isFinished: item.isFinished
+                done: item.done
             )
         } else {
             return ToDoItem(
                 title: title,
                 observation: observation,
                 date: date,
-                isFinished: false
+                done: false
             )
         }
     }

@@ -20,14 +20,27 @@ struct ToDoRepository {
     }
 
     func load() -> [ToDoItem] {
+        let allItems = fetch()
+        return allItems.filter { !$0.done }
+    }
+    
+    func toggleDone(for item: ToDoItem) {
+        var items = fetch()
+        guard let index = items.firstIndex(where: {$0.id == item.id}) else { return }
+        items[index].done.toggle()
+        save(items)
+    }
+    
+    private func fetch() -> [ToDoItem] {
         guard let data = UserDefaults.standard.data(forKey: key) else {
             return []
         }
+        
         do {
-            let allItems = try JSONDecoder().decode([ToDoItem].self, from: data)
-            return allItems.filter { !$0.isFinished }
+            let items = try JSONDecoder().decode([ToDoItem].self, from: data)
+            return items
         } catch {
-            print("❌ Erro ao carregar ToDoItems: \(error)")
+            print(error)
             return []
         }
     }
