@@ -19,9 +19,9 @@ struct ToDoRepository {
         }
     }
 
-    func load() -> [ToDoItem] {
+    func fetchInbox() -> [ToDoItem] {
         let allItems = fetch()
-        return allItems.filter { !$0.done }
+        return allItems.filter { !$0.done && $0.date == nil }
     }
     
     func toggleDone(for item: ToDoItem) {

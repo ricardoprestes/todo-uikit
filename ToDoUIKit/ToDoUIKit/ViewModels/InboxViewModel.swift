@@ -19,7 +19,7 @@ final class InboxViewModel {
     
     //MARK: - Methods
     func fetchItems() {
-        items = repository.load()
+        items = repository.fetchInbox()
     }
     
     func numberOfItems() -> Int {
