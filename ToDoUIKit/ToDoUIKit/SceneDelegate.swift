@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         inboxViewController.title = "Inbox"
         inboxViewController.tabBarItem = UITabBarItem(title: "Inbox", image: UIImage(systemName: "tray"), tag: 0)
         
-        let todayViewController = TodayViewController()
+        let todayViewController = TodayTableViewController()
         todayViewController.title = "Today"
         todayViewController.tabBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "calendar"), tag: 1)
         
