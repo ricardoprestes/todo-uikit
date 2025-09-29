@@ -34,14 +34,7 @@ final class ToDoItemFormViewModel {
     }
     
     func save(item: ToDoItem? = nil) {
-        var items = repository.fetchInbox()
         let newItem = toModel(item: item)
-        
-        if let index = items.firstIndex(where: {$0.id == newItem.id}) {
-            items[index] = newItem
-        } else {
-            items.append(newItem)
-        }
-        repository.save(items)
+        repository.save(newItem)
     }
 }

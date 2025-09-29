@@ -10,7 +10,17 @@ import Foundation
 struct ToDoRepository {
     private let key = "ToDoItems"
 
-    func save(_ items: [ToDoItem]) {
+    func save(_ item: ToDoItem) {
+        var items = fetch()
+        if let index = items.firstIndex(of: item) {
+            items[index] = item
+        } else {
+            items.append(item)
+        }
+        save(items)
+    }
+    
+    private func save(_ items: [ToDoItem]) {
         do {
             let data = try JSONEncoder().encode(items)
             UserDefaults.standard.set(data, forKey: key)
@@ -27,11 +37,13 @@ struct ToDoRepository {
     func fetchToday() -> [ToDoItem] {
         let allItems = fetch()
         let today = Calendar.current.startOfDay(for: Date())
+        
         return allItems.filter{ item in
             guard !item.done, let itemDate = item.date else { return false }
             return Calendar.current.isDate(itemDate, inSameDayAs: today)
         }
     }
+
     
     func toggleDone(for item: ToDoItem) {
         var items = fetch()
