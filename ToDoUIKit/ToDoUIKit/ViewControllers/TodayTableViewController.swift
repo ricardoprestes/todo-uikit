@@ -41,6 +41,13 @@ class TodayTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = viewModel.item(at: indexPath.row)
+        let viewController = ToDoItemFormViewController(item: item)
+        
+        openFormViewController(viewController)
+    }
+    
     
     func openFormViewController(_ viewController: ToDoItemFormViewController) {
         viewController.onSave = { [weak self]  in
