@@ -12,14 +12,14 @@ struct ToDoItem: Identifiable, Codable, Equatable
     let id: UUID
     var title: String
     var observation: String
-    var date: Date
+    var date: Date?
     var done: Bool
     
     init(
         id: UUID = UUID(),
         title: String,
         observation: String = "",
-        date: Date = Date(),
+        date: Date? = nil,
         done: Bool = false
     ) {
         self.id = id

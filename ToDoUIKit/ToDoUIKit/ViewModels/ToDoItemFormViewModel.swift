@@ -10,7 +10,7 @@ import Foundation
 final class ToDoItemFormViewModel {
     var title: String = ""
     var observation: String = ""
-    var date: Date = Date()
+    var date: Date? = nil
     
     private let repository = ToDoRepository()
     

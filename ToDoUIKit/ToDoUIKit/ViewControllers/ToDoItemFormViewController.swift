@@ -105,7 +105,9 @@ class ToDoItemFormViewController: UIViewController {
         if let item = item {
             titleTextField.text = item.title
             observationTextView.text = item.observation
-            dateTextField.text = DateFormatter.localizedString(from: item.date, dateStyle: .medium, timeStyle: .none)
+            if let date = item.date {
+                dateTextField.text = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+            }
         }
     }
     
@@ -143,7 +145,13 @@ class ToDoItemFormViewController: UIViewController {
     
     @objc func saveTapped() {
         viewModel.title = titleTextField.text ?? ""
-        viewModel.date = datePicker.date
+        
+        if let date = dateTextField.text, !date.isEmpty {
+            viewModel.date = datePicker.date
+        } else {
+            viewModel.date = nil
+        }
+        
         viewModel.observation = observationTextView.text ?? ""
         
         viewModel.save(item: self.item)
