@@ -24,6 +24,15 @@ struct ToDoRepository {
         return allItems.filter { !$0.done && $0.date == nil }
     }
     
+    func fetchToday() -> [ToDoItem] {
+        let allItems = fetch()
+        let today = Calendar.current.startOfDay(for: Date())
+        return allItems.filter{ item in
+            guard !item.done, let itemDate = item.date else { return false }
+            return Calendar.current.isDate(itemDate, inSameDayAs: today)
+        }
+    }
+    
     func toggleDone(for item: ToDoItem) {
         var items = fetch()
         guard let index = items.firstIndex(where: {$0.id == item.id}) else { return }
