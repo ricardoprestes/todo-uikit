@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         todayViewController.title = "Today"
         todayViewController.tabBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "calendar"), tag: 1)
         
-        let upcomingViewController = UpcomingViewController()
+        let upcomingViewController = UpcomingTableViewController()
         upcomingViewController.title = "Upcoming"
         upcomingViewController.tabBarItem = UITabBarItem(title: "Upcoming", image: UIImage(systemName: "calendar.badge.plus"), tag: 2)
         

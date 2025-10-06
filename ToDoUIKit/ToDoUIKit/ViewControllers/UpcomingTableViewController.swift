@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UpcomingViewController: UIViewController {
+class UpcomingTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
