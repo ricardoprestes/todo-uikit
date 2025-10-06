@@ -43,6 +43,11 @@ struct ToDoRepository {
             return Calendar.current.isDate(itemDate, inSameDayAs: today)
         }
     }
+    
+    func fetchUpcoming() -> [ToDoItem] {
+        let allItems = fetch()
+        return allItems.filter { !$0.done && $0.date != nil }
+    }
 
     
     func toggleDone(for item: ToDoItem) {
