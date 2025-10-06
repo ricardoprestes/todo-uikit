@@ -10,7 +10,7 @@ import UIKit
 
 class UpcomingViewModel {
     private let repository = ToDoRepository()
-    private(set) var groupedItems: [(date: Date, items: [ToDoItem])] = []
+    private(set) var groupedItems: [(title: String?, date: Date?, items: [ToDoItem])] = []
     
     init() {
         fetchItems()
@@ -20,12 +20,38 @@ class UpcomingViewModel {
         let allItems: [ToDoItem] = repository.fetchUpcoming()
         
         let calendar = Calendar.current
-        let grouped = Dictionary(grouping: allItems) { item -> Date in
-            calendar.startOfDay(for: item.date ?? Date())
+        let today = calendar.startOfDay(for: Date())
+                
+        // Overdue
+        let overdue = allItems.filter { calendar.startOfDay(for: $0.date!) < today }
+        
+        // Today
+        let todayItems = allItems.filter { calendar.isDate($0.date!, inSameDayAs: today) }
+        
+        // Upcoming
+        let upcomingItems = allItems.filter { calendar.startOfDay(for: $0.date!) > today }
+        
+        // Agrupar upcoming por dia
+        let groupedUpcoming = Dictionary(grouping: upcomingItems) { item -> Date in
+            calendar.startOfDay(for: item.date!)
+        }
+        .map { (key, value) in (date: key, items: value) }
+        .sorted { $0.date < $1.date }
+        
+        // Monta estrutura final
+        groupedItems = []
+        
+        if !overdue.isEmpty {
+            groupedItems.append((title: "Overdue", date: nil, items: overdue.sorted { $0.date! < $1.date! }))
         }
         
-        groupedItems = grouped
-            .map { (key, value) in (date: key, items: value.sorted(by: { $0.date ?? Date() < $1.date ?? Date() }))}
+        if !todayItems.isEmpty {
+            groupedItems.append((title: "Today", date: today, items: todayItems))
+        }
+        
+        for group in groupedUpcoming {
+            groupedItems.append((title: nil, date: group.date, items: group.items))
+        }
     }
     
     func numberOfSections() -> Int {
@@ -41,9 +67,26 @@ class UpcomingViewModel {
     }
     
     func titleForSection(_ section: Int) -> String {
-        let date = groupedItems[section].date
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
+        if let title = groupedItems[section].title {
+            return title
+        }
+        
+        if let date = groupedItems[section].date {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            return formatter.string(from: date)
+        }
+        
+        return ""
+    }
+    
+    func toggleDone(for item: ToDoItem) {
+        for (sectionIndex, section) in groupedItems.enumerated() {
+            if let rowIndex = section.items.firstIndex(where: { $0.id == item.id }) {
+                groupedItems[sectionIndex].items[rowIndex].done.toggle()
+                repository.toggleDone(for: groupedItems[sectionIndex].items[rowIndex])
+                break
+            }
+        }
     }
 }
